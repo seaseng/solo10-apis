@@ -1,3 +1,5 @@
+
+
 enable :sessions
 
 get '/' do
@@ -17,7 +19,6 @@ end
 
 get '/user/new' do
   erb :'/user/user_new'
-
 end
 
 post '/user/new' do
@@ -31,14 +32,11 @@ post '/user/new' do
     @error_messages = user.errors.full_messages
     erb :'/user/user_new'
   end
-
-
 end
 
 
 get '/user/login' do 
   erb :'/user/user_login'
-
 end
 
 post '/user/login' do
@@ -62,7 +60,6 @@ get "/user/:id" do #user profile page
   else
     erb :'/user/user_login'
   end
-
 end
 
 get '/logout' do
@@ -72,4 +69,25 @@ get '/logout' do
 end
 
 
+get '/github' do
+  erb :github_view
 
+end
+
+post '/github' do
+  # github_user = github_authenticate(params[:user])
+  user_name = params[:user_name]
+  password  = params[:password]
+
+  @client = Octokit::Client.new(:login => user_name, :password => password)
+  @followers = @client.followers(user_name)
+  @gists = @client.gists(user_name)
+  @repos = @client.repositories(user_name)
+
+  # puts "Client: #{client.methods}"
+
+  # debugger
+  # ""
+  erb :index
+
+end

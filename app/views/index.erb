@@ -1,4 +1,23 @@
 <div class="container">
-  <h2>Sinatra Skelton with User Login and Validations</h2>
-  <h2> This is the Index View </h2>
+  <h2>GitHub Info Retriever</h2>
+
+  <% if @client %>
+    <h3 style='color:blue'><%= @client.login %>'s Stuff</h3>
+    <h4>Followers</h4>
+    <% @followers.each do |follower| %>
+    <p><%= follower.login %></p>
+    <% end %>
+    <h4>Repos</h4>
+    <% @repos.each do |repo| %>
+    <p><%= repo.name %></p>
+    <% end %>
+
+    <h4>Gists</h4>
+    <% @gists.each do |gist| %>
+    <p><%= gist.description %></p>
+    <% end %>
+
+  <% else %>
+    <p><a href='/github'>Log Into Github</p>
+  <% end %>
 </div>
